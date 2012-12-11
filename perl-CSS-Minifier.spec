@@ -1,19 +1,19 @@
 %define upstream_name    CSS-Minifier
 %define upstream_version 0.01
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 1
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	2
 
-Summary:    Remove unnecessary whitespace from CSS files
-License:    GPL+ or Artistic
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/CSS/%{upstream_name}-%{upstream_version}.tar.gz
+Summary:	Remove unnecessary whitespace from CSS files
+License:	GPL+ or Artistic
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/CSS/%{upstream_name}-%{upstream_version}.tar.gz
 
-BuildRequires: perl(ExtUtils::MakeMaker)
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
+BuildRequires:	perl-devel
+BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildArch:	noarch
 
 %description
 This module removes unnecessary whitespace from CSS. The primary
@@ -36,24 +36,22 @@ repeatedly is wasteful.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
 %make test
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(-,root,root)
 %doc README Changes META.yml
 %{_mandir}/man3/*
-%perl_vendorlib/*
+%{perl_vendorlib}/*
 
+%changelog
+* Fri Sep 09 2011 Luis Daniel Lucio Quiroz <dlucio@mandriva.org> 0.10.0-1mdv2011.0
++ Revision: 699162
+- import perl-CSS-Minifier
 
